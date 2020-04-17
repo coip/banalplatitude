@@ -12,5 +12,6 @@ jobs:
           username: "coip"
           password: ${{ secrets.pkgpat }}
           repository: coip/banalplatitude
+          dockerfile: $GITHUB_WORKSPACE/Dockerfile
           registry: docker.pkg.github.com
           tags: latest
