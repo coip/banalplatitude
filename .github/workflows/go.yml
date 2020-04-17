@@ -16,17 +16,10 @@ jobs:
       - name: Build
         run: go build .
 
-      - name: docker build
-        run: |
-          docker build \
-          --label commit=${{ github.sha }} \
-          --label build-agent=$(hostname) \
-          --label arch="$(uname -s)-$(uname -i)" \
-          --label buildtime=$(date +"%d-%m-%Y[%T]") \
-          -t docker.pkg.github.com/coip/banalplatitude:${GITHUB_SHA::8} \
-          .
-
-      - name: publish docker image as repo package
-        run: |
-          echo "${{ secrets.pkgpat }}" | docker login docker.pkg.github.com -u "coip" --password-stdin
-          docker push docker.pkg.github.com/coip/banalplatitude:${GITHUB_SHA::8}
+      - name: Build+Push
+        uses: docker/build-push-action@v1
+        with:
+          username: "coip"
+          password: ${{ secrets.pkgpat }}
+          repository: coip/banalplatitude
+          tags: latest
