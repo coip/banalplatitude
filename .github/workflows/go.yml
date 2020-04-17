@@ -14,6 +14,6 @@ jobs:
         with:
           username: "coip"
           password: ${{ secrets.pkgpat }}
-          repository: coip/banalplatitude
+          repository: coip/banalplatitude/listener
           registry: docker.pkg.github.com
-          tags: /listener:latest
+          tags: latest
