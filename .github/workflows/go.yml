@@ -4,6 +4,7 @@ jobs:
   build:
     name: Build & Publish Image
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Build+Push
         uses: docker/build-push-action@v1
