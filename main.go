@@ -25,8 +25,8 @@ func main() {
 		(http.HandlerFunc)(func(w http.ResponseWriter, r *http.Request) {
 			print(s_ack)
 			if id, present := r.Header["id"]; present {
-				print(id)
-				w.Write(c_ack(id))
+				print(id[0])
+				w.Write(c_ack(id[0]))
 			} else {
 				w.WriteHeader(http.StatusOK)
 			}	
