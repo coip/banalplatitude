@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Check out code into the Go module directory
+      - name: Check out code
         uses: actions/checkout@v1
 
       - name: Build+Push
@@ -16,4 +16,4 @@ jobs:
           password: ${{ secrets.pkgpat }}
           repository: coip/banalplatitude
           registry: docker.pkg.github.com
-          tags: latest
+          tags: /listener:latest
