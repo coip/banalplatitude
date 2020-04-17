@@ -5,8 +5,9 @@ import (
 	"os"
 )
 
+const s_ack = "#"
+
 var (
-	s_ack = "👍"
 	c_ack = []byte(s_ack + "\n")
 
 	port string
