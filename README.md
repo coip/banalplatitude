@@ -32,7 +32,7 @@ holdonasec
 # ~speak to listener
 for i in $(seq 0 3)
 do 
-  curl -s -H "id: $i" localhost:8080
+  curl -s -H "id: $i" localhost:${hostPort}
 done
 holdonasec
 
