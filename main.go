@@ -23,7 +23,6 @@ func main() {
 	print(http.ListenAndServe(port,
 		(http.HandlerFunc)(func(w http.ResponseWriter, r *http.Request) {
 			print(s_ack)
-			w.Header().Add("Content-Type", "application/javascript; charset=utf-8")
 			w.Write(c_ack)
 		}),
 	))
