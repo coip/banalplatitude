@@ -24,9 +24,9 @@ func main() {
 	print(http.ListenAndServe(port,
 		(http.HandlerFunc)(func(w http.ResponseWriter, r *http.Request) {
 			print(s_ack)
-			if id, present := r.Header["id"]; present {
-				print(id[0])
-				w.Write(c_ack(id[0]))
+			if id := r.Header.Get("id"); len(id) > 0 {
+				print(id)
+				w.Write(c_ack(id))
 			} else {
 				w.WriteHeader(http.StatusOK)
 			}	
