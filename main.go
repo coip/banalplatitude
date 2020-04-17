@@ -8,7 +8,7 @@ import (
 const s_ack = "#"
 
 var (
-	c_ack = []byte(s_ack + "\n")
+	c_ack = func(id string) []byte { return []byte("["+s_ack+id+"]"+"\n") }
 
 	port string
 )
@@ -24,7 +24,12 @@ func main() {
 	print(http.ListenAndServe(port,
 		(http.HandlerFunc)(func(w http.ResponseWriter, r *http.Request) {
 			print(s_ack)
-			w.Write(c_ack)
+			if id, present := r.Header["id"]; present {
+				print(id)
+				w.Write(c_ack(id))
+			} else {
+				w.WriteHeader(http.StatusOK)
+			}	
 		}),
 	))
 
