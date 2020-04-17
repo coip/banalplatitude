@@ -7,7 +7,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Build+Push
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v1.0.1
         with:
           username: "coip"
           password: ${{ secrets.pkgpat }}
