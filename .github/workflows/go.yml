@@ -1,0 +1,32 @@
+name: Go
+on: push
+jobs:
+  build:
+    name: Build & Publish Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.14
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.14
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: go build .
+
+      - name: docker build
+        run: |
+          docker build \
+          --label commit=${{ github.sha }} \
+          --label build-agent=$(hostname) \
+          --label arch="$(uname -s)-$(uname -i)" \
+          --label buildtime=$(date +"%d-%m-%Y[%T]") \
+          -t docker.pkg.github.com/coip/banalplatitude:${GITHUB_SHA::8} \
+          .
+
+      - name: publish docker image as repo package
+        run: |
+          echo "${{ secrets.pkgpat }}" | docker login docker.pkg.github.com -u "coip" --password-stdin
+          docker push docker.pkg.github.com/coip/banalplatitude:${GITHUB_SHA::8}
