@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"net"
 	"net/http"
 	"os"
 )
@@ -12,6 +15,28 @@ var (
 
 	port string
 )
+
+func getOutboundIP() string {
+	conn, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+
+	return localAddr.IP.String()
+}
+
+func hostIdentifier() []byte {
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = "unknown"
+	}
+	ip := getOutboundIP()
+
+	return []byte(fmt.Sprintf("%s => %s", hostname, ip))
+}
 
 func main() {
 
@@ -28,7 +53,7 @@ func main() {
 				print(id)
 				w.Write(c_ack(id))
 			} else {
-				w.WriteHeader(http.StatusOK)
+				w.Write(hostIdentifier())
 			}
 		}),
 	))
