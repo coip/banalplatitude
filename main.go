@@ -8,7 +8,7 @@ import (
 const s_ack = "#"
 
 var (
-	c_ack = func(id string) []byte { return []byte("["+s_ack+id+"]"+"\n") }
+	c_ack = func(id string) []byte { return []byte("[" + s_ack + id + "]" + "\n") }
 
 	port string
 )
@@ -29,7 +29,7 @@ func main() {
 				w.Write(c_ack(id))
 			} else {
 				w.WriteHeader(http.StatusOK)
-			}	
+			}
 		}),
 	))
 
