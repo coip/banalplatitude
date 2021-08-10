@@ -1,5 +1,5 @@
 # banalplatitude
-~long-lived ~helloworld
+~long-lived helloworld
 
 
 should be fine to cp the below into a ~/bin/bash with docker:
